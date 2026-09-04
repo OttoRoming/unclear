@@ -1,0 +1,104 @@
+\documentclass{TDP003mall}
+
+\usepackage{float}
+\usepackage{minted}
+
+\newcommand{\version}{Version 1.0}
+\author{Otto Roming, \url{ottro821@student.liu.se}}
+\title{Konkurrensanalys}
+\date{2026-03-10}
+\rhead{Otto Roming}
+
+\begin{document}
+\projectpage
+\section{Versionshistorik}
+\begin{table}[!h]
+\begin{tabularx}{\linewidth}{|l|X|l|}
+\hline
+Ver. & Revisionsbeskrivning & Datum \\\hline
+1.0 & Första version av konkurrensanalysen & 2026-09-04 \\\hline
+\end{tabularx}
+\end{table}
+
+\section{Översikt}
+För att utföra konkurrensanalysen valde jag att analysera appen Beerbuddy för dess liknande ämne och målgrupp till min app.
+
+\section{Krav}
+\subsection{Måste-krav}
+\subsubsection{}
+En användare ska kunna logga in via olika tredjeparter och via mail för att få en egen profil, Se figur \ref{fig:bb-login} och \ref{fig:bb-profile}.
+
+\subsubsection{}
+En användare ska kunna ändra inställningar för att konfigurera den till användarens nöje. Se figur \ref{fig:bb-settings}.
+
+\subsubsection{}
+En användare ska kunna se och personifiera sin egna profil. Se figur \ref{fig:bb-profile}.
+
+\subsubsection{}
+En användare ska kunna lägga upp bilder på när de dricker drycker. Se figur \ref{fig:bb-camera}
+
+\subsubsection{}
+En användare ska kunna välja vilken dryck det är de dricker och det ska inkluderas i deras post. Se figur \ref{fig:bb-camera} och \ref{fig:bb-flow}
+
+\subsubsection{}
+En användare ska kunna se de bilder som andra användare har lagt ut. Se figur \ref{fig:bb-flow}
+
+\subsubsection{}
+En användare ska kunna se var de har druckit och på vilka ställen. Se figur \ref{fig:bb-map}
+
+\subsubsection{}
+En användare ska kunna se statestik på sitt egna och sina vänners användande av appen. Se figur \ref{fig:bb-stats}
+
+\subsection{Egna-krav}
+\subsubsection{}
+En användare ska kunna se hur nära de är på att ha provat hela Systembolagets sortiment.
+
+\subsubsection{}
+En användare ska kunna se smakbeskrivningar och fråga AI om drycker.
+
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{docs/beerbuddy-login.jpg}
+    \caption{Beerbuddys loginvy}
+    \label{fig:bb-login}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{docs/beerbuddy-profile.jpg}
+    \caption{Beerbuddys profilvy}
+    \label{fig:bb-profile}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{docs/beerbuddy-settings.jpg}
+    \caption{Beerbuddys Inställningsvy}
+    \label{fig:bb-settings}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{docs/beerbuddy-camera.jpg}
+    \caption{Beerbuddys kameravy}
+    \label{fig:bb-camera}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{docs/beerbuddy-post.jpg}
+    \caption{Beerbuddys flöde av användares bilder}
+    \label{fig:bb-flow}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{docs/beerbuddy-map.jpg}
+    \caption{Beerbuddys kartvy}
+    \label{fig:bb-map}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{docs/beerbuddy-stats.jpg}
+    \caption{Beerbuddys Statestikvy}
+    \label{fig:bb-stats}
+\end{figure}
+
+\end{document}
