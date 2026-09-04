@@ -1,0 +1,59 @@
+\documentclass{TDP003mall}
+
+\usepackage{float}
+\usepackage{minted}
+
+\newcommand{\version}{Version 3.0}
+\author{Otto Roming, \url{ottro821@student.liu.se}}
+\title{Språkspec}
+\date{2026-03-10}
+\rhead{Otto Roming}
+
+\begin{document}
+\projectpage
+\section{Revisionshistorik}
+\begin{table}[!h]
+\begin{tabularx}{\linewidth}{|l|X|l|}
+\hline
+Ver. & Revisionsbeskrivning & Datum \\\hline
+1.0 & Första version av språkspecifikationen (språkidé) & 2026-02-18 \\\hline
+2.0 & Andra version av språkspecifikationen (utkast av grammatik) & 2026-02-25 \\\hline
+3.0 & Tredje version av språkspecifikationen & 2026-03-10 \\\hline
+\end{tabularx}
+\end{table}
+
+\section{Översikt}
+Språket \textit{Oeno} (namngivet efter den afrikanska musarten rostnosråttan även känd som oenomys\cite{renaud_size_1999}) ska utvecklas för att lösa generella problem i en proceduriell stil. Interpretator kommer att skrivas i programspråket \textit{Rust} med egen parser skriven specifikt för ändamålet att läsa \textit{Oeno} källkod. Språket kommer att vara typat, det vill säga att när en variabel eller parameter är deklarerad kommer den inte kunna byta typ senare i koden.  Denna typning kommer att hanteras av en \textit{type checker} som går igenom syntaxträdet innan exekvering.
+
+\section{Typning}
+Språket kommer att vara statiskt typat så att när en variabel deklareras anges den en klass som den sedan ej kan bytas. Denna typkontrollering görs av interpretatorn innan evalueringen av programkoden så att utvecklaren snabbt kan hitta problem i hens programkod.
+
+\section{Referenser av värden}
+Standardfunktionaliteten i språket är att värden kopieras. Om användaren vill använda referenser kan hen använda sig av de två unära operatorerna ''\textt{\&}'' och ''\texttt{*}'' för att skapa en referens till ett värde samt att hämta värdet från referensen.
+
+\section{Objektorienterade mönster}
+Språket kommer inte innehålla några objektorienterade mönster för att förebygga onödig komplexitet.
+
+\section{\textit{Scope}}
+Varje uttryck och sats i språket där måsvingar (\texttt{\{\}}) använder sitt egna \textit{scope}. Detta betyder att varje if-sats, loop, funktion osv har ett eget \textit{scope}. När en funktion anropas så kommer funktionen endast ha tillgång till variabler i \textit{scope} över funktionsdeklarationen samt de argument som skickades in. Detta kontrolleras innan koden evalueras av samma system som kontrollerar den statiska typningen. Funktioner använder sig av statisk bindning till \textit{scopet} där de definierades.
+
+\section{Grammatik}
+Detta är ett utkast av grammatiken i Backus–Naur form till språket och kan anses vara en komplett grammatik för språket. Grammatiken är i stora drag inspirerad av grammatiken för Lox \cite{nystrom_crafting_2021} och C \cite{degner_ansi_1995}.
+
+\newpage
+
+\subsection{Stater}
+\inputminted{peg}{grammar/statements.bnf}
+
+\subsection{Uttryck}
+\inputminted{peg}{grammar/expressions.bnf}
+
+\newpage
+
+\subsection{Typspecifikatorer}
+\inputminted{peg}{grammar/type_specifiers.bnf}
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}
