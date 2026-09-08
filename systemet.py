@@ -19,7 +19,7 @@ products: dict[str, Any] = {}
 def get_page_url(
     page: int, size: int, category_level_1: str, category_level_2: str | None = None
 ) -> str:
-    url = f"https://api-extern.systembolaget.se/sb-api-ecommerce/v2/productsearch/search?page={page}&size={size}&sortBy=Score&sortDirection=Ascending&categoryLevel1={category_level_1}"
+    url = f"https://api-extern.systembolaget.se/sb-api-ecommerce/v2/productsearch/search?page={page}&size={size}&sortBy=Score&sortDirection=Ascending&categoryLevel1={urllib.parse.quote(category_level_1)}"
     if category_level_2 is not None:
         url += f"&categoryLevel2={urllib.parse.quote(category_level_2)}"
 
