@@ -74,7 +74,7 @@ def get_sortiment():
                 products[id] = product
 
             print(f"done {log_page_identifier}")
-            time.sleep(2)
+            time.sleep(1)
 
 
 def main():
