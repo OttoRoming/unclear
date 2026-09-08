@@ -3,6 +3,7 @@ from typing import Any
 import json
 import sys
 import time
+import urllib.parse
 
 SYSTEMET_URL = "https://www.systembolaget.se"
 SYSTEMET_URL_SORTIMENT = f"{SYSTEMET_URL}/sortiment"
@@ -20,7 +21,7 @@ def get_page_url(
 ) -> str:
     url = f"https://api-extern.systembolaget.se/sb-api-ecommerce/v2/productsearch/search?page={page}&size={size}&sortBy=Score&sortDirection=Ascending&categoryLevel1={category_level_1}"
     if category_level_2 is not None:
-        url += f"&categoryLevel2={category_level_2}"
+        url += f"&categoryLevel2={urllib.parse.quote(category_level_2)}"
 
     return url
 
