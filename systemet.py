@@ -12,7 +12,7 @@ SYSTEMET_HEADERS = {"ocp-apim-subscription-key": OCP_APIM_SUBSCRIPTION_KEY}
 
 SIZE = 30
 
-products = []
+products: dict[str, Any] = {}
 
 
 def get_page_url(
@@ -44,7 +44,12 @@ def get_sortiment():
         ("Vin", "Rosévin"),
         ("Vin", "Starkvin"),
         ("Vin", "Vinlåda"),
-        ("Vin", "Vinlåda"),
+        ("Vin", "Smaksatt vin & fruktvin"),
+        ("Vin", "Glögg och Glühwein"),
+        ("Vin", "Vermouth"),
+        ("Vin", "Aperitifer"),
+        ("Vin", "Sake"),
+        ("Vin", "Drycker av flera typer"),
         ("Öl", None),
         ("Sprit", None),
         ("Cider & blanddrycker", None),
@@ -55,18 +60,21 @@ def get_sortiment():
     for category_level_1, category_level_2 in categories:
         data = http_get_json(get_page_url(1, 30, category_level_1, category_level_2))
         page_count = data["metadata"]["totalPages"]
-        print(category_level_1, category_level_2, page_count)
 
-        # for page in range(1, page_count + 1):
-        #     print(
-        #         f"fetching {category_level_1}, {category_level_2} {page}/{page_count}"
-        #     )
-        #     url = get_page_url(page, SIZE, category_level_1, category_level_2)
-        #     data = http_get_json(url)
-        #     data_products = data["products"]
-        #     products.extend(data_products)
-        #     print(f"fetched {category_level_1}, {category_level_2} {page}/{page_count}")
-        #     time.sleep(2)
+        for page in range(1, page_count + 1):
+            log_page_identifier = f"{category_level_1}, {category_level_2} {page}/{page_count}"
+            print(f"get  {log_page_identifier}")
+
+            url = get_page_url(page, SIZE, category_level_1, category_level_2)
+            data = http_get_json(url)
+            data_products = data["products"]
+
+            for product in data_products:
+                id = product["productId"]
+                products[id] = product
+
+            print(f"done {log_page_identifier}")
+            time.sleep(2)
 
 
 def main():
