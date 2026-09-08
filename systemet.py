@@ -14,6 +14,7 @@ SYSTEMET_HEADERS = {"ocp-apim-subscription-key": OCP_APIM_SUBSCRIPTION_KEY}
 SIZE = 30
 
 products: dict[str, Any] = {}
+cache: dict[str, Any] = {}
 
 
 def get_page_url(
@@ -27,15 +28,17 @@ def get_page_url(
 
 
 def http_get_json(url: str) -> dict[Any, Any]:
+    data = cache.get(url)
+    if data is not None:
+        return data
+
+    time.sleep(1)
     r = requests.get(url, headers=SYSTEMET_HEADERS)
-    if not r.ok:
-        print(r.status_code)
-        print(r.headers)
-        print(r.text)
-        sys.exit(1)
+    assert r.ok
 
-    return r.json()
-
+    data = r.json()
+    cache[url] = data
+    return data
 
 def get_sortiment():
     categories = [
@@ -75,7 +78,6 @@ def get_sortiment():
                 products[id] = product
 
             print(f"done {log_page_identifier}")
-            time.sleep(1)
 
 
 def main():
@@ -86,4 +88,8 @@ def main():
 
 
 if __name__ == "__main__":
+    with open("cache.json", "r") as f:
+        cache = json.load(f)
     main()
+    with open("cache.json", "w") as f:
+        json.dump(cache, f)
