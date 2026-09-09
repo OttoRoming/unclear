@@ -12,9 +12,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Unclear'),
     );
   }
 }
@@ -53,6 +53,12 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
+            FilledButton(child: const Text("Login"), onPressed: ()  {
+              _incrementCounter();
+            },),
+            FilledButton(child: const Text("Signup"), onPressed: ()  {
+              _incrementCounter();
+            },)
           ],
         ),
       ),
