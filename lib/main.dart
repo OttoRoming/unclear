@@ -14,22 +14,24 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
       ),
-      home: const MyHomePage(title: 'Unclear'),
+      home: const AuthPage(title: 'Unclear'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class AuthPage extends StatefulWidget {
+  const AuthPage({super.key, required this.title});
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<AuthPage> createState() => _AuthPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _AuthPageState extends State<AuthPage> {
   int _counter = 0;
+  String _username = "";
+  String _password = "";
 
   void _incrementCounter() {
     setState(() {
@@ -47,18 +49,41 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          spacing: 8.0,
           children: <Widget>[
             const Text('You have pushed the button this many times:'),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-            FilledButton(child: const Text("Login"), onPressed: ()  {
-              _incrementCounter();
-            },),
-            FilledButton(child: const Text("Signup"), onPressed: ()  {
-              _incrementCounter();
-            },)
+
+            TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Username',
+              ),
+            ),
+
+            TextField(
+              obscureText: true,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Password',
+              ),
+            ),
+
+            FilledButton.tonal(
+              child: const Text("Login"),
+              onPressed: () {
+                _incrementCounter();
+              },
+            ),
+            OutlinedButton(
+              child: const Text("Signup"),
+              onPressed: () {
+                _incrementCounter();
+              },
+            ),
           ],
         ),
       ),
