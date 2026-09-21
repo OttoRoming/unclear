@@ -29,14 +29,14 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
-  int _counter = 0;
   String _username = "";
   String _password = "";
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  void _hanleAuthentication() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const HomePage()),
+    );
   }
 
   @override
@@ -51,12 +51,6 @@ class _AuthPageState extends State<AuthPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           spacing: 8.0,
           children: <Widget>[
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-
             TextField(
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
@@ -75,23 +69,35 @@ class _AuthPageState extends State<AuthPage> {
             FilledButton.tonal(
               child: const Text("Login"),
               onPressed: () {
-                _incrementCounter();
+                _hanleAuthentication();
               },
             ),
             OutlinedButton(
               child: const Text("Signup"),
               onPressed: () {
-                _incrementCounter();
+                _hanleAuthentication();
               },
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+    );
+  }
+}
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Home Page")),
+      body: const Center(child: Text("Welcome to the Home Page!")),
     );
   }
 }
