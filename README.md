@@ -6,3 +6,5 @@ En app för att spåra hur stor andel av Systembolagets sortiment du har provat
 - [Appbeskrivning](./docs/appbeskrivning.md)
 - [Konkurrensanalys](./docs/konkurrensanalys.pdf)
 - [Wireframe-navigationsdiagram](./docs/wireframe.jpg)
+- [Tekniskt PM](./docs/pm.pdf)
+- [Veckoplanering](./docs/planering.pdf)
