@@ -1,0 +1,41 @@
+\documentclass{TDP003mall}
+
+\usepackage{float}
+\usepackage{minted}
+
+\newcommand{\version}{Version 1.0}
+\author{Otto Roming, \url{ottro821@student.liu.se}}
+\title{Tekniskt PM}
+\date{2026-10-19}
+\rhead{Otto Roming}
+
+\begin{document}
+\projectpage
+\section{Versionshistorik}
+\begin{table}[!h]
+\begin{tabularx}{\linewidth}{|l|X|l|}
+\hline
+Ver. & Revisionsbeskrivning & Datum \\\hline
+1.0 & Första version av tekniskt PM & 2026-10-19 \\\hline
+\end{tabularx}
+\end{table}
+
+
+\section{Introduktion}
+Min applikation är inriktad mot studenter och kommer att ge folk chansen att tävla mot vänner i att prova så många olika drycker som möjligt. Det kommer troligtvis användas för alkoholfria drycker men främst också för alkoholhaltiga. Med tanke på detta kan det vara viktigt att applikationen inte bara gör tävlandet roligt utan också aktivt förebygger skadlig alkoholkonsumtion, bland annat genom varningar och integritetsinställningar.
+
+\textbf{Hur kan man göra ett spel kopplat till alkohol som är spännande samtidigt som man förebygger att folk skadas?}
+
+\section{Att utveckla ett spel folk är motiverade att spela}
+2023 gjordes en studie för att undersöka motiv för studenter att spela dryckesspel. Studien utgick från en tidigare studie som specifierar 7 olika motiv men i den skriven 2023 identifierades endast 5 av dem hos universitetsstudenter. Dessa var social smörjning, konformitet, spänning, tävling och nyhetsbehag. Jag kommer med min applikation att försöka uppnå social smörjning genom att låta användare hitta andra personer via appen. Jag anser att applikationen kommer också att ge spänning genom att låta vänner se vem som ligger bäst. Till sist så anser jag också att applikationen kommer att ge nyhetsbehag i början då det är en ny applikation. \cite{george_it_2023}
+
+\section{Hantera alkoholrelaterat innehåll}
+Alkoholrelaterat innehåll i sociala medier har visat sig ha skadliga effekter genom att bland annat öka alkoholkonsumtionen hos individerna som ser innehållet. Unga vuxna anser att den mest effektiva metoden för att skydda mot detta innehåll är automatiska varningar, såsom att censurera bilder och att visa \textit{popup-notifikationer}, då dessa ger användaren kontroll samtidigt som det skapar medvetenhet. Denna metod går att använda både för dem som skapar alkoholrelaterat innehåll och de som ser det eftersom dessa varningar går att visa innan användare publicerar innehållet och innan andra användare ser innehållet i deras flöde. Ett problem med denna studie är att den endast undersökte vilka metoder som unga vuxna reagerade positivt på och ansåg var effektiva. Den testade alltså aldrig praktiskt vilka av dessa metoder som fungerade bäst. \cite{hendriks_dealing_2023}
+
+\section{Skydda användares integritet}
+Innehållet som användare publicerar i min applikation kan anses vara känsligt och därför är det viktigt att ge användarna möjligheten att välja för vilka personer det innehåll som de lägger upp ska visas för att förebygga att användaren skadas. För detta bör jag ge användaren fler alternativ utan att endast ha en binär ''privat''/''publik'' knapp i applikationen. Detta stöds av forskning som visar på att ungdomar föredrar möjligheten att finjustera mer i sina integritetsinställningar av applikationen \cite{vanherle_only_2023}. Tekniskt innebär detta att varje publicerad provning eller resultat bör kopplas till en ägare, en definierad publik och en synlighetsnivå som användaren kan ändra i efterhand.
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}

@@ -1,0 +1,125 @@
+\documentclass{TDP003mall}
+
+\usepackage{float}
+\usepackage{minted}
+
+\newcommand{\version}{Version 1.0}
+\author{Otto Roming, \url{ottro821@student.liu.se}}
+\title{Veckoplanering}
+\date{2026-10-19}
+\rhead{Otto Roming}
+
+\begin{document}
+\projectpage
+\section{Versionshistorik}
+\begin{table}[!h]
+\begin{tabularx}{\linewidth}{|l|X|l|}
+\hline
+Ver. & Revisionsbeskrivning & Datum \\\hline
+1.0 & Första version av veckoplanering & 2026-10-19 \\\hline
+\end{tabularx}
+\end{table}
+
+
+\section{Bakgrund}
+Just nu ligger jag bakom milstolpe-4 i kursen. Därför är det som viktigast att jag fokuserar på att bli klar med den innan halvtidsscreencasten så jag klarar av de obligatoriska delarna i kursen. Samtidigt satsar jag på betyg 5 i kursen vilket betyder att jag måste lyckas uppnå ett högt antal krav
+
+\section{Vecka 43}
+Målet denna vecka är att bli klar med sen inlämning av milstolpe-4.
+
+\subsection{Tekniska krav}
+\begin{itemize}
+    \item Enkel inloggning av användare mot Firebase (1 p)
+    \item Kontohantering, t.ex. lagra poäng, vänlista, eller dylikt som ska sparas över tid för olika användare. (1 p) 
+\end{itemize}
+
+\subsection{Entreprenöriella krav}
+\begin{itemize}
+    \item Firestore. Använder Cloud Firestore eller Realtime Database som databas. Båda lösningarna är Googles lagringstjänst för mobile- och webb-appar som erbjuder bl.a. databas och autentisering. Dessutom finns en mer generell databas-lösning som heter Firebase Cloud Storage. Cloud Storage accepterar både ljud, bild, och text så i princip alla appar kan utnyttja Cloud Storage på ett eller annat sätt. (2 p)
+\end{itemize}
+
+\subsection{Samanlagda poäng}
+2 tekniska, 2 entreprenöriella
+
+
+\section{Vecka 45}
+Nu är det dags att göra färdigt halvtidsscreencast
+
+\subsection{Tekniska krav}
+\begin{itemize}
+    \item Använder någon sensor, t.ex. kamera eller GPS (1p per sensor)
+    \textit{2 poäng i mitt fall då jag använder mig av både GPS för att spara positionen av inlägg samt en kopplad bild}
+    \item Använder forms och validerar användarinput, så att input är av rätt typ, och är korrekt. T.ex. att lösenord är tillräcklig starka. (2 p)
+    \item Använder routes (go-routes biblioteket) för navigering i stället för Navigator.push. (1 p)    
+\end{itemize}
+
+\subsection{Entreprenöriella krav}
+\begin{itemize}
+    \item Sökfunktion i appen, dvs. att användaren kan skriva in ett sökord och få upp relevant information. Oftast krävs att sökningen genomförs på backend-sidan, för att säkerställa att all relevant information kan visas, inte bara det som råkade finnas på skrämen. (2 p)
+\end{itemize}
+
+\subsection{Samanlagda poäng}
+7 tekniska, 4 entreprenöriella
+
+\section{Vecka 46}
+Implementera användarinställningar
+
+\subsection{Tekniska krav}
+
+\subsection{Entreprenöriella krav}
+\begin{itemize}
+    \item Någon typ av UX inställning, t.ex. möjlighet att ändra till dark mode (1 p)
+    \item Någon form av accessibility stöd, t.ex. öka font-storlek. (1 p)
+\end{itemize}
+
+\subsection{Samanlagda poäng}
+7 tekniska, 6 entreprenöriella
+
+\section{Vecka 47}
+Implementera en hjälpsam ai chattfunktion i appen
+
+\subsection{Tekniska krav}
+
+\subsection{Entreprenöriella krav}
+\begin{itemize}
+    \item Använder någon form av AI via publikt interface (API) (2 p)
+\end{itemize}
+
+\subsection{Samanlagda poäng}
+7 tekniska, 8 entreprenöriella
+
+\section{Vecka 48 och 49}
+Finslipa koden till en komplett applikation
+
+\subsection{Tekniska krav}
+\begin{itemize}
+    \item{Hantering av stora och små skärmar, eller skärmrotation, genom att använda olika layouter. Användaren ska kunna byta från mobil till tablet utan att tappa i upplevelse. Bl.a. är det viktigt att information användaren hunnit skriva in bevaras, så att skärmen förblir detsamma. Det är också viktigt att layout:en ser bra ut i båda lägen. Användarupplevelsen kan enkelt testas genom att rotera mobilen eller emulatorn före uppstart. (2 p)}
+\end{itemize}
+
+\subsection{Entreprenöriella krav}
+
+\subsection{Samanlagda poäng}
+9 tekniska, 8 entreprenöriella
+
+\subsection{Samanlagda poäng}
+7 tekniska, 8 entreprenöriella
+
+\section{Vecka 50 och 51}
+\begin{itemize}
+    \item slutdemo
+    \item inlämning av slut-screencast på ca. 5 minuter
+    \item inlämning av kod
+\end{itemize}
+
+\subsection{Tekniska krav}
+
+\subsection{Entreprenöriella krav}
+
+\subsection{Samanlagda poäng}
+9 tekniska, 8 entreprenöriella
+
+
+% \bibliographystyle{IEEEtran}
+% \bibliography{references}
+
+\end{document}
