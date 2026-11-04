@@ -134,6 +134,9 @@ class _AuthPageState extends State<AuthPage> {
     if (username.length < 2) {
       return 'Use at least 2 characters.';
     }
+    if (username.length > 30) {
+      return 'Use at most 30 characters.';
+    }
     return null;
   }
 

@@ -1,11 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'user_service.dart';
+
 /// Thin wrapper around [FirebaseAuth] so screens do not depend directly on
 /// the Firebase plugin.
 class AuthService {
-  AuthService({FirebaseAuth? auth}) : _auth = auth ?? FirebaseAuth.instance;
+  AuthService({FirebaseAuth? auth, UserService? userService})
+    : _auth = auth ?? FirebaseAuth.instance,
+      _userService = userService ?? UserService();
 
   final FirebaseAuth _auth;
+  final UserService _userService;
 
   late final Stream<User?> authStateChanges = _auth.authStateChanges();
 
@@ -33,6 +38,7 @@ class AuthService {
     }
 
     await user.updateDisplayName(username);
+    await _userService.saveUsername(user.uid, username);
   }
 
   Future<void> signOut() => _auth.signOut();

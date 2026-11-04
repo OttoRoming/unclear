@@ -1,0 +1,22 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{uid} {
+      // Signed-in users can read profiles (needed for user search).
+      allow read: if request.auth != null;
+
+      // Users may only write their own profile, restricted to the known fields.
+      allow create, update: if request.auth != null
+        && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly(['username', 'usernameLower'])
+        && request.resource.data.username is string
+        && request.resource.data.username.size() >= 2
+        && request.resource.data.username.size() <= 30
+        && request.resource.data.usernameLower is string
+        && request.resource.data.usernameLower == request.resource.data.username.lower();
+
+      allow delete: if false;
+    }
+  }
+}
