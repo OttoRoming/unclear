@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../services/auth_service.dart';
+import '../widgets/app_bar.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key, required this.authService});
@@ -33,17 +34,7 @@ class HomePage extends StatelessWidget {
         final theme = Theme.of(context);
 
         return Scaffold(
-          appBar: AppBar(
-            backgroundColor: theme.colorScheme.inversePrimary,
-            title: const Text('Unclear'),
-            actions: [
-              IconButton(
-                onPressed: () => _signOut(context),
-                icon: const Icon(Icons.logout),
-                tooltip: 'Sign out',
-              ),
-            ],
-          ),
+          appBar: UnclearAppBar(onSignOut: () => _signOut(context)),
           body: Center(
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(24),
