@@ -3,15 +3,23 @@ import 'package:flutter/material.dart';
 
 import '../services/auth_service.dart';
 import '../widgets/app_bar.dart';
+import '../widgets/navigation_bar.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.authService});
 
   final AuthService authService;
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int _currentPageIndex = 0;
+
   Future<void> _signOut(BuildContext context) async {
     try {
-      await authService.signOut();
+      await widget.authService.signOut();
     } on FirebaseAuthException catch (exception) {
       if (context.mounted) {
         ScaffoldMessenger.of(
@@ -24,9 +32,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(
-      stream: authService.userChanges,
+      stream: widget.authService.userChanges,
       builder: (context, snapshot) {
-        final user = snapshot.data ?? authService.currentUser;
+        final user = snapshot.data ?? widget.authService.currentUser;
         final displayName = user?.displayName?.trim();
         final greetingName = (displayName == null || displayName.isEmpty)
             ? 'there'
@@ -68,6 +76,11 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
+          ),
+          bottomNavigationBar: UnclearNavigationBar(
+            selectedIndex: _currentPageIndex,
+            onDestinationSelected: (index) =>
+                setState(() => _currentPageIndex = index),
           ),
         );
       },
