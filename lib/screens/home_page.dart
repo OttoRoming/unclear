@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../services/auth_service.dart';
+import '../services/post_service.dart';
 import '../widgets/app_bar.dart';
 import '../widgets/navigation_bar.dart';
 
@@ -17,6 +18,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentPageIndex = 0;
 
+  final _postService = PostService();
   final _postFormKey = GlobalKey<FormState>();
   final _messageController = TextEditingController();
   final _drinkController = TextEditingController();
@@ -49,7 +51,18 @@ class _HomePageState extends State<HomePage> {
       return;
     }
 
-    // TODO: Post the message and drink.
+    await _postService.createPost(
+      message: _messageController.text.trim(),
+      drink: _drinkController.text.trim(),
+    );
+
+    if (!mounted) {
+      return;
+    }
+
+    _messageController.clear();
+    _drinkController.clear();
+    setState(() => _currentPageIndex = 0);
   }
 
   Future<void> _signOut(BuildContext context) async {
