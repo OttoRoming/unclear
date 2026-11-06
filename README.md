@@ -8,4 +8,4 @@ En app för att spåra hur stor andel av Systembolagets sortiment du har provat
 - [Wireframe-navigationsdiagram](./docs/wireframe.jpg)
 - [Tekniskt PM](./docs/pm.pdf)
 - [Veckoplanering](./docs/planering.pdf)
-- [HalvtidsHalvtids-screencast](./docs/halvtids-screencast.webm)
+- [Halvtids-screencast](./docs/halvtids-screencast.webm)
