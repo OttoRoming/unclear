@@ -28,15 +28,27 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-  void _onMessageChanged(String value) {
-    // TODO: Handle message changes.
+  String? _validateMessage(String? value) {
+    final message = value?.trim() ?? '';
+    if (message.isEmpty) {
+      return 'Enter a message.';
+    }
+    return null;
   }
 
-  void _onDrinkChanged(String value) {
-    // TODO: Handle drink changes.
+  String? _validateDrink(String? value) {
+    final drink = value?.trim() ?? '';
+    if (drink.isEmpty) {
+      return 'Enter a drink.';
+    }
+    return null;
   }
 
   Future<void> _onPostPressed() async {
+    if (!_postFormKey.currentState!.validate()) {
+      return;
+    }
+
     // TODO: Post the message and drink.
   }
 
@@ -124,7 +136,7 @@ class _HomePageState extends State<HomePage> {
                                 maxLines: 5,
                                 textCapitalization:
                                     TextCapitalization.sentences,
-                                onChanged: _onMessageChanged,
+                                validator: _validateMessage,
                               ),
                               const SizedBox(height: 16),
                               TextFormField(
@@ -133,7 +145,7 @@ class _HomePageState extends State<HomePage> {
                                   labelText: 'Drink',
                                 ),
                                 textInputAction: TextInputAction.done,
-                                onChanged: _onDrinkChanged,
+                                validator: _validateDrink,
                                 onFieldSubmitted: (_) => _onPostPressed(),
                               ),
                               const SizedBox(height: 24),

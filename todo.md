@@ -1,0 +1,1 @@
+- limit drink and message at 256 chars

@@ -18,5 +18,18 @@ service cloud.firestore {
 
       allow delete: if false;
     }
+
+    match /posts/{uid} {
+      allow read: if request.auth != null;
+
+      allow create: if request.auth != null
+        && request.resource.keys().hasOnly(['message', 'drink'])
+        && request.resource.data.message is string
+        && request.resource.data.message.size() > 0
+        && request.resource.data.drink is string
+        && request.resource.data.drink.size() > 0;
+
+      allow delete, update: if false;
+    }
   }
 }
