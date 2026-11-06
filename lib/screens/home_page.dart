@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../services/auth_service.dart';
 import '../services/post_service.dart';
+import '../services/user_service.dart';
 import '../widgets/app_bar.dart';
 import '../widgets/navigation_bar.dart';
 
@@ -19,11 +20,14 @@ class _HomePageState extends State<HomePage> {
   int _currentPageIndex = 0;
 
   final _postService = PostService();
+  final _userService = UserService();
   final _postFormKey = GlobalKey<FormState>();
   final _messageController = TextEditingController();
   final _drinkController = TextEditingController();
+  final _searchController = TextEditingController();
 
   List<Post> _posts = [];
+  List<UserSearchResult> _userResults = [];
 
   @override
   void initState() {
@@ -38,10 +42,20 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  Future<void> _searchUsers() async {
+    final users = await _userService.searchUsername(
+      _searchController.text.trim(),
+    );
+    if (mounted) {
+      setState(() => _userResults = users);
+    }
+  }
+
   @override
   void dispose() {
     _messageController.dispose();
     _drinkController.dispose();
+    _searchController.dispose();
     super.dispose();
   }
 
@@ -205,6 +219,46 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ],
                           ),
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              : _currentPageIndex == 2
+              ? SafeArea(
+                  child: Center(
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.all(24),
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 420),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            TextField(
+                              controller: _searchController,
+                              decoration: const InputDecoration(
+                                labelText: 'Search username',
+                              ),
+                              textInputAction: TextInputAction.search,
+                              onSubmitted: (_) => _searchUsers(),
+                            ),
+                            const SizedBox(height: 16),
+                            FilledButton.icon(
+                              onPressed: _searchUsers,
+                              icon: const Icon(Icons.search),
+                              label: const Text('Search'),
+                              style: FilledButton.styleFrom(
+                                minimumSize: const Size.fromHeight(48),
+                              ),
+                            ),
+                            const SizedBox(height: 24),
+                            for (final user in _userResults)
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 8),
+                                child: Text(user.username),
+                              ),
+                          ],
                         ),
                       ),
                     ),
