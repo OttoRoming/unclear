@@ -23,6 +23,21 @@ class _HomePageState extends State<HomePage> {
   final _messageController = TextEditingController();
   final _drinkController = TextEditingController();
 
+  List<Post> _posts = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPosts();
+  }
+
+  Future<void> _loadPosts() async {
+    final posts = await _postService.fetchPosts();
+    if (mounted) {
+      setState(() => _posts = posts);
+    }
+  }
+
   @override
   void dispose() {
     _messageController.dispose();
@@ -63,6 +78,7 @@ class _HomePageState extends State<HomePage> {
     _messageController.clear();
     _drinkController.clear();
     setState(() => _currentPageIndex = 0);
+    await _loadPosts();
   }
 
   Future<void> _signOut(BuildContext context) async {
@@ -99,6 +115,7 @@ class _HomePageState extends State<HomePage> {
                       constraints: const BoxConstraints(maxWidth: 520),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Text(
                             'Welcome, $greetingName!',
@@ -116,11 +133,27 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ],
                           const SizedBox(height: 32),
-                          OutlinedButton.icon(
-                            onPressed: () => _signOut(context),
-                            icon: const Icon(Icons.logout),
-                            label: const Text('Sign out'),
+                          Center(
+                            child: OutlinedButton.icon(
+                              onPressed: () => _signOut(context),
+                              icon: const Icon(Icons.logout),
+                              label: const Text('Sign out'),
+                            ),
                           ),
+                          const SizedBox(height: 32),
+                          Text(
+                            'Latest posts',
+                            style: theme.textTheme.titleLarge,
+                          ),
+                          const SizedBox(height: 12),
+                          if (_posts.isEmpty)
+                            const Text('No posts yet.')
+                          else
+                            for (final post in _posts)
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 8),
+                                child: Text('${post.message} - ${post.drink}'),
+                              ),
                         ],
                       ),
                     ),
@@ -180,8 +213,12 @@ class _HomePageState extends State<HomePage> {
               : const Placeholder(),
           bottomNavigationBar: UnclearNavigationBar(
             selectedIndex: _currentPageIndex,
-            onDestinationSelected: (index) =>
-                setState(() => _currentPageIndex = index),
+            onDestinationSelected: (index) {
+              setState(() => _currentPageIndex = index);
+              if (index == 0) {
+                _loadPosts();
+              }
+            },
           ),
         );
       },
