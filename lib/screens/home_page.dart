@@ -17,6 +17,29 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentPageIndex = 0;
 
+  final _postFormKey = GlobalKey<FormState>();
+  final _messageController = TextEditingController();
+  final _drinkController = TextEditingController();
+
+  @override
+  void dispose() {
+    _messageController.dispose();
+    _drinkController.dispose();
+    super.dispose();
+  }
+
+  void _onMessageChanged(String value) {
+    // TODO: Handle message changes.
+  }
+
+  void _onDrinkChanged(String value) {
+    // TODO: Handle drink changes.
+  }
+
+  Future<void> _onPostPressed() async {
+    // TODO: Post the message and drink.
+  }
+
   Future<void> _signOut(BuildContext context) async {
     try {
       await widget.authService.signOut();
@@ -79,7 +102,56 @@ class _HomePageState extends State<HomePage> {
                   ),
                 )
               : _currentPageIndex == 1
-              ? const Placeholder()
+              ? SafeArea(
+                  child: Center(
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.all(24),
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 420),
+                        child: Form(
+                          key: _postFormKey,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              TextFormField(
+                                controller: _messageController,
+                                decoration: const InputDecoration(
+                                  labelText: 'Message',
+                                  alignLabelWithHint: true,
+                                ),
+                                minLines: 3,
+                                maxLines: 5,
+                                textCapitalization:
+                                    TextCapitalization.sentences,
+                                onChanged: _onMessageChanged,
+                              ),
+                              const SizedBox(height: 16),
+                              TextFormField(
+                                controller: _drinkController,
+                                decoration: const InputDecoration(
+                                  labelText: 'Drink',
+                                ),
+                                textInputAction: TextInputAction.done,
+                                onChanged: _onDrinkChanged,
+                                onFieldSubmitted: (_) => _onPostPressed(),
+                              ),
+                              const SizedBox(height: 24),
+                              FilledButton.icon(
+                                onPressed: _onPostPressed,
+                                icon: const Icon(Icons.send),
+                                label: const Text('Post'),
+                                style: FilledButton.styleFrom(
+                                  minimumSize: const Size.fromHeight(48),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                )
               : const Placeholder(),
           bottomNavigationBar: UnclearNavigationBar(
             selectedIndex: _currentPageIndex,
