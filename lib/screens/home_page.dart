@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:unclear/widgets/feed.dart';
 
 import '../services/auth_service.dart';
 import '../services/post_service.dart';
@@ -26,21 +27,21 @@ class _HomePageState extends State<HomePage> {
   final _drinkController = TextEditingController();
   final _searchController = TextEditingController();
 
-  List<Post> _posts = [];
+  // List<Post> _posts = [];
   List<UserSearchResult> _userResults = [];
 
   @override
   void initState() {
     super.initState();
-    _loadPosts();
+    // _loadPosts();
   }
 
-  Future<void> _loadPosts() async {
-    final posts = await _postService.fetchPosts();
-    if (mounted) {
-      setState(() => _posts = posts);
-    }
-  }
+  // Future<void> _loadPosts() async {
+  //   final posts = await _postService.streamPosts();
+  //   if (mounted) {
+  //     setState(() => _posts = posts);
+  //   }
+  // }
 
   Future<void> _searchUsers() async {
     final users = await _userService.searchUsername(
@@ -92,7 +93,7 @@ class _HomePageState extends State<HomePage> {
     _messageController.clear();
     _drinkController.clear();
     setState(() => _currentPageIndex = 0);
-    await _loadPosts();
+    // await _loadPosts();
   }
 
   Future<void> _signOut(BuildContext context) async {
@@ -160,14 +161,7 @@ class _HomePageState extends State<HomePage> {
                             style: theme.textTheme.titleLarge,
                           ),
                           const SizedBox(height: 12),
-                          if (_posts.isEmpty)
-                            const Text('No posts yet.')
-                          else
-                            for (final post in _posts)
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 8),
-                                child: Text('${post.message} - ${post.drink}'),
-                              ),
+                          Feed(),
                         ],
                       ),
                     ),
@@ -270,7 +264,7 @@ class _HomePageState extends State<HomePage> {
             onDestinationSelected: (index) {
               setState(() => _currentPageIndex = index);
               if (index == 0) {
-                _loadPosts();
+                // _loadPosts();
               }
             },
           ),

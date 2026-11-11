@@ -22,15 +22,15 @@ class PostService {
     return _posts.add({'message': message.trim(), 'drink': drink.trim()});
   }
 
-  Future<List<Post>> fetchPosts() async {
-    final result = await _posts.get();
-
-    return result.docs.map((doc) {
-      return Post(
-        id: doc.id,
-        message: doc.data()['message'] ?? '',
-        drink: doc.data()['drink'] ?? '',
-      );
-    }).toList();
+  Stream<List<Post>> streamPosts() {
+    return _posts.snapshots().map((snapshot) {
+      return snapshot.docs.map((doc) {
+        return Post(
+          id: doc.id,
+          message: doc.data()['message'] ?? '',
+          drink: doc.data()['drink'] ?? '',
+        );
+      }).toList();
+    });
   }
 }
