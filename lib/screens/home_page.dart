@@ -161,7 +161,7 @@ class _HomePageState extends State<HomePage> {
                             style: theme.textTheme.titleLarge,
                           ),
                           const SizedBox(height: 12),
-                          Feed(),
+                          Feed(userId: user!.uid, postService: _postService),
                         ],
                       ),
                     ),
