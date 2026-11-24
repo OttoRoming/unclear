@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import "../services/post_service.dart";
 
 class ScreenPost extends StatefulWidget {
@@ -12,7 +13,10 @@ class ScreenPost extends StatefulWidget {
 
 class _ScreenPostState extends State<ScreenPost> {
   final _postService = PostService();
+
   final _postFormKey = GlobalKey<FormState>();
+
+  var _sharePosition = false;
   final _messageController = TextEditingController();
   final _drinkController = TextEditingController();
 
@@ -32,9 +36,46 @@ class _ScreenPostState extends State<ScreenPost> {
     return null;
   }
 
+  Future<String?> _geoError() async {
+    try {
+      if (!await Geolocator.isLocationServiceEnabled()) {
+        return 'Turn on location services to create a post.';
+      }
+
+      var permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+      }
+
+      if (permission == LocationPermission.denied) {
+        return 'Location permission is required to create a post.';
+      }
+      if (permission == LocationPermission.deniedForever) {
+        return 'Location permission is disabled. Enable it in settings.';
+      }
+
+      return null;
+    } on Exception {
+      return 'Could not access location services.';
+    }
+  }
+
   Future<void> _onPostPressed() async {
     if (!_postFormKey.currentState!.validate()) {
       return;
+    }
+
+    if (_sharePosition) {
+      final geoError = await _geoError();
+      if (geoError != null) {
+        if (!mounted) {
+          return;
+        }
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(geoError)));
+        return;
+      }
     }
 
     await _postService.createPost(
@@ -84,6 +125,16 @@ class _ScreenPostState extends State<ScreenPost> {
                     textInputAction: TextInputAction.done,
                     validator: _validateDrink,
                     onFieldSubmitted: (_) => _onPostPressed(),
+                  ),
+                  const SizedBox(height: 24),
+                  SwitchListTile(
+                    title: const Text("Share position"),
+                    value: _sharePosition,
+                    onChanged: (v) {
+                      setState(() {
+                        _sharePosition = v;
+                      });
+                    },
                   ),
                   const SizedBox(height: 24),
                   FilledButton.icon(
