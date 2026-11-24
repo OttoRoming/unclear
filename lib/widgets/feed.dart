@@ -1,26 +1,27 @@
 import 'package:flutter/material.dart';
+import '../services/auth_service.dart';
 import '../services/post_service.dart';
 
 class Feed extends StatefulWidget {
-  const Feed({super.key, required this.userId, this.postService});
-
-  final String userId;
-  final PostService? postService;
+  const Feed({super.key});
 
   @override
   State<Feed> createState() => _FeedState();
 }
 
 class _FeedState extends State<Feed> {
-  late final PostService _postService = widget.postService ?? PostService();
+  late final _authService = AuthService();
+  late final _postService = PostService();
+  late final _userId = _authService.currentUser!.uid;
+
   late final Stream<List<Post>> _postsStream = _postService.streamPosts(
-    widget.userId,
+    _userId,
   );
 
   Future<void> _toggleLike(Post post) async {
     try {
       await _postService.setLiked(
-        uid: widget.userId,
+        uid: _userId,
         postId: post.id,
         liked: !post.likedByMe,
       );
